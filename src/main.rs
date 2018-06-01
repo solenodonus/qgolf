@@ -231,22 +231,16 @@ fn main() {
 
   let lattice_spacing: real = 0.01;
 
-  let frames_count = 300;
+  let frames_count = 600;
   let dt: real = 50.0;
 
-  let steps_per_frame = 20;
+  let steps_per_frame = 40;
   let individual_frames = false;
 
   // 0. Prepare the potential energy function (initial conditions).
-  let stiffness = 0.000;
-  let mut u = Field::<real>::new(w, h);
-  for x in 0..w {
-    for y in 0..h {
-      u.set(x, y, (((x as real - x0 as real) * lattice_spacing).powi(4) +
-                   ((y as real - y0 as real) * lattice_spacing).powi(4)) *
-                   stiffness);
-    }
-  }
+  let u = Field::<real>::new_populated(w, h, |x, _y| {
+    0.0001 * x as real
+  });
 
   // 1. Initialize the wavefunction with a coherent state.
   for x in 0..w {
