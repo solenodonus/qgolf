@@ -225,22 +225,20 @@ fn main() {
   let mut psi = Field::<complex>::new(w, h);  // Wave function.
 
   let hbar: real = 0.1;  // Reduced Planck's constant (aka h-bar), in natural units.
-  let (x0, y0) = (320, 240);  // Initial position of the golf ball.
+  let (x0, y0) = (100, 240);  // Initial position of the golf ball.
   let (p0_x, p0_y): (real, real) =
-                    (100.0, 30.0);  // Initial momenta of the golf ball.
+                    (0.0, 0.0);  // Initial momenta of the golf ball.
 
   let lattice_spacing: real = 0.01;
 
-  let frames_count = 600;
+  let frames_count = 500;
   let dt: real = 50.0;
 
-  let steps_per_frame = 40;
+  let steps_per_frame = 160;
   let individual_frames = false;
 
   // 0. Prepare the potential energy function (initial conditions).
-  let u = Field::<real>::new_populated(w, h, |x, _y| {
-    0.0001 * x as real
-  });
+  let u = Field::<real>::new_populated(w, h, |_, _| 0.0);
 
   // 1. Initialize the wavefunction with a coherent state.
   for x in 0..w {
